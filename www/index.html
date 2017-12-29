@@ -25,7 +25,7 @@
 		return dataPoints;
 	}
 	$(document).ready(function(){
-	$("#temp").load("http://192.168.100.35/Datajson.php");
+	$("#temp").load("http://181.198.254.130/Datajson.php");
 	  var chart = new CanvasJS.Chart("chartContainer", {
 		animationEnabled:true,
 		theme: "light2",
@@ -53,21 +53,21 @@
 	});
 	chart.render();
 	window.setInterval(function(){
-	  $("#temp").load("http://192.168.100.35/Datajson.php");
+	  $("#temp").load("http://181.198.254.130/Datajson.php");
 	  datos = document.getElementById("temp").innerHTML;
 	  objDat = JSON.parse(datos);
 	  if(objDat.length < 25){
-	     $("#temp").load("http://192.168.100.35/Datajson.php");
+	     $("#temp").load("http://181.198.254.130/Datajson.php");
 	     datos = document.getElementById("temp").innerHTML;
 	     objDat = JSON.parse(datos);
 	  }
 	  if(objDat.length < 25){
-	     $("#temp").load("http://192.168.100.35/Datajson.php");
+	     $("#temp").load("http://181.198.254.130/Datajson.php");
 	     datos = document.getElementById("temp").innerHTML;
 	     objDat = JSON.parse(datos);
 	  }
 	  if(objDat.length < 25){
-	     $("#temp").load("http://192.168.100.35/Datajson.php");
+	     $("#temp").load("http://181.198.254.130/Datajson.php");
 	     datos = document.getElementById("temp").innerHTML;
 	     objDat = JSON.parse(datos);
 	  }
