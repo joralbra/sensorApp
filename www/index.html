@@ -26,8 +26,6 @@
 	}
 	$(document).ready(function(){
 	$("#temp").load("http://192.168.100.35/Datajson.php");
-	datos = JSON.stringify(<?php include 'http://192.168.100.35/Datajson.php';?>);
-	objDat = JSON.parse(datos);
 	  var chart = new CanvasJS.Chart("chartContainer", {
 		animationEnabled:true,
 		theme: "light2",
@@ -50,7 +48,7 @@
 			type: "spline",
 			yValueFormatString: "#0.##",
 			xValueFormatString:"DD/MMM/YY hh:mm:ss",
-			dataPoints: carga(objDat)
+			dataPoints: []
 		}]
 	});
 	chart.render();
