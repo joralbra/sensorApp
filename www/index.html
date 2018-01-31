@@ -67,7 +67,7 @@
                         type: "spline",
                         yValueFormatString: "#0.##",
                         xValueFormatString:"DD/MMM/YY hh:mm:ss",
-                        dataPoints: cargaTemp(objDat)
+                        dataPoints: []
                 }]
         });
 	var chartCO = new CanvasJS.Chart("chartContainerCO", {
@@ -92,7 +92,7 @@
                         type: "spline",
                         yValueFormatString: "#0.##",
                         xValueFormatString:"DD/MMM/YY hh:mm:ss",
-                        dataPoints: cargaCO(objDat)
+                        dataPoints: []
                 }]
         });
 	var chartHum = new CanvasJS.Chart("chartContainerHum", {
@@ -117,7 +117,7 @@
                         type: "spline",
                         yValueFormatString: "#0.##",
                         xValueFormatString:"DD/MMM/YY hh:mm:ss",
-                        dataPoints: cargaHum(objDat)
+                        dataPoints: []
                 }]
         });
 	chartTemp.render();
