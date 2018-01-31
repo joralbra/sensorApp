@@ -15,70 +15,132 @@
     <script type="text/javascript">
 	var datos;
         var objDat;
-	function carga(objDat){
-		dataPoints = [];
-	  	for(i=0; i<objDat.length; i++){
-			if(objDat[i] != null){
-			   dataPoints.push({x: new Date(objDat[i].Date), y: Number(objDat[i].Temp)});
-			}
-		}
-		return dataPoints;
-	}
+	function cargaTemp(objDat){
+                dataPoints = [];
+                for(i=0; i<objDat.length; i++){
+                        if(objDat[i] != null){
+                           dataPoints.push({x: new Date(objDat[i].Fecha), y: Number(objDat[i].Temp)});
+                        }
+                }
+                return dataPoints;
+        }
+        function cargaCO(objDat){
+                dataPoints = [];
+                for(i=0; i<objDat.length; i++){
+                        if(objDat[i] != null){
+                           dataPoints.push({x: new Date(objDat[i].Fecha), y: Number(objDat[i].CO)});
+                        }
+                }
+                return dataPoints;
+        }
+        function cargaHum(objDat){
+                dataPoints = [];
+                for(i=0; i<objDat.length; i++){
+                        if(objDat[i] != null){
+                           dataPoints.push({x: new Date(objDat[i].Fecha), y: Number(objDat[i].Hum)});
+                        }
+                }
+                return dataPoints;
+        }
+	    
 	$(document).ready(function(){
-	$("#temp").load("http://181.198.254.130/Datajson.php");
-	  var chart = new CanvasJS.Chart("chartContainer", {
-		animationEnabled:true,
-		theme: "light2",
-		title: {
-			text: "Live Data"
-		},
-		axisX:{
-			valueFormatString: "DD/MMM/YY hh:mm:ss"
-		},
-		axisY:{
-			title: "random number",
-			titleFontSize: 15,
-			maximum: 110
-		},
-		legend:{
-			cursor:"pointer",
-			fontsize:16
-		},
-		data: [{
-			type: "spline",
-			yValueFormatString: "#0.##",
-			xValueFormatString:"DD/MMM/YY hh:mm:ss",
-			dataPoints: []
-		}]
-	});
-	chart.render();
+	$("#temp").load("http://192.168.100.54/Datajson.php");
+	var chartTemp = new CanvasJS.Chart("chartContainerTemp", {
+                animationEnabled:true,
+                theme: "light2",
+                title: {
+                        text: "Temperatura"
+                },
+                axisX:{
+                        valueFormatString: "DD/MMM/YY hh:mm:ss"
+                },
+                axisY:{
+                        title: "ยบC",
+                        titleFontSize: 15,
+                        maximum: 150
+                },
+                legend:{
+                        cursor:"pointer",
+                        fontsize:16
+                },
+                data: [{
+                        type: "spline",
+                        yValueFormatString: "#0.##",
+                        xValueFormatString:"DD/MMM/YY hh:mm:ss",
+                        dataPoints: cargaTemp(objDat)
+                }]
+        });
+	var chartCO = new CanvasJS.Chart("chartContainerCO", {
+                animationEnabled:true,
+                theme: "light2",
+                title: {
+                        text: "Monoxido de Carbono"
+                },
+                axisX:{
+                        valueFormatString: "DD/MMM/YY hh:mm:ss"
+                },
+                axisY:{
+                        title: "ppm",
+                        titleFontSize: 15,
+                        maximum: 3000
+                },
+                legend:{
+                        cursor:"pointer",
+                        fontsize:16
+                },
+                data: [{
+                        type: "spline",
+                        yValueFormatString: "#0.##",
+                        xValueFormatString:"DD/MMM/YY hh:mm:ss",
+                        dataPoints: cargaCO(objDat)
+                }]
+        });
+	var chartHum = new CanvasJS.Chart("chartContainerHum", {
+                animationEnabled:true,
+                theme: "light2",
+                title: {
+                        text: "Humedad"
+                },
+                axisX:{
+                        valueFormatString: "DD/MMM/YY hh:mm:ss"
+                },
+                axisY:{
+                        title: "Porcentaje %",
+                        titleFontSize: 15,
+                        maximum: 100
+                },
+                legend:{
+                        cursor:"pointer",
+                        fontsize:16
+                },
+                data: [{
+                        type: "spline",
+                        yValueFormatString: "#0.##",
+                        xValueFormatString:"DD/MMM/YY hh:mm:ss",
+                        dataPoints: cargaHum(objDat)
+                }]
+        });
+	chartTemp.render();
+        chartCO.render();
+        chartHum.render();
 	window.setInterval(function(){
-	  $("#temp").load("http://181.198.254.130/Datajson.php");
+	  $("#temp").load("http://192.168.100.54/Datajson.php");
 	  datos = document.getElementById("temp").innerHTML;
 	  objDat = JSON.parse(datos);
-	  if(objDat.length < 25){
-	     $("#temp").load("http://181.198.254.130/Datajson.php");
-	     datos = document.getElementById("temp").innerHTML;
-	     objDat = JSON.parse(datos);
-	  }
-	  if(objDat.length < 25){
-	     $("#temp").load("http://181.198.254.130/Datajson.php");
-	     datos = document.getElementById("temp").innerHTML;
-	     objDat = JSON.parse(datos);
-	  }
-	  if(objDat.length < 25){
-	     $("#temp").load("http://181.198.254.130/Datajson.php");
-	     datos = document.getElementById("temp").innerHTML;
-	     objDat = JSON.parse(datos);
-	  }
-	  chart.options.data[0].dataPoints = carga(objDat);
-	  chart.render();
-	}, 2500);
+	  chartTemp.options.data[0].dataPoints = cargaTemp(objDat);
+          chartTemp.render();
+          chartCO.options.data[0].dataPoints = cargaCO(objDat);
+          chartCO.render();
+          chartHum.options.data[0].dataPoints = cargaHum(objDat);
+          chartHum.render();
+	}, 1000);
 	});
     </script>
   </head>
   <body>
   <div id="temp"></div>
-  <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+  <div id="chartContainerTemp" style="height: 300px; width: 100%; border-color: lightgrey;border-radius: 10px;border-style: double; margin-bottom: 25px;"></div>
+  <div id="chartContainerCO" style="height: 300px; width: 100%; border-color: lightgrey;border-radius: 10px;border-style: double; margin-bottom: 25px;"></div>
+  <div id="chartContainerHum" style="height: 300px; width: 100%; border-color: ligtgrey;border-radius: 10px;border-style: double; margin-bottom: 25px;"></div>
   </body>
 </html>
